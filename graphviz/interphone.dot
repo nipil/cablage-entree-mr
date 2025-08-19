@@ -1,0 +1,111 @@
+graph {
+
+    subgraph cluster_EXTERIEUR {
+        subgraph cluster_SONNETTE {
+            style = filled;
+            color = beige;
+            label = "Sonnette/interphone extérieur";
+            
+            IE_JA_1;
+            IE_JA_2;
+        }
+        subgraph cluster_GACHE {
+            style = filled;
+            color = beige;
+            label = "Gâche portillon";
+            
+            GACHE_1;
+            GACHE_2;
+        }
+    }
+    
+    subgraph cluster_ALIM {
+        style = filled;
+        color = beige;
+        label = "Alimentation";
+        
+        TRANSFO_GARAGE_POS;
+        TRANSFO_GARAGE_NEG;
+    }
+    
+    subgraph cluster_INTERPHONE {
+        style = filled;
+        color = beige;
+        label = "Interphone intérieur";
+        
+        IE_1AD_POS;
+        IE_1AD_NEG;
+        IE_1AD_L1;
+        IE_1AD_L2;
+        IE_1AD_JA_1;
+        IE_1AD_JA_2;
+    }
+    
+    
+    subgraph cluster_BP_PORTAIL {
+        style = filled;
+        color = beige;
+        label = "Bouton portail";
+        
+        BUTTON_1;
+        BUTTON_2;
+    }
+    
+    subgraph cluster_ZA3 {
+        style = filled;
+        color = beige;
+        label = "Carte portail ZA3 ";
+        
+        ZA3_2 [shape = box;];
+        ZA3_7 [shape = box;];
+    }
+    
+    J19_INTERPHONE_BP_1;
+    J19_INTERPHONE_BP_2;
+    
+    J21_TRANSFO_GACHE_1;
+    J21_TRANSFO_GACHE_2;
+    J21_TRANSFO_BP_1;
+    J21_TRANSFO_BP_2;
+    
+    J22_PENETRATION_GACHE_1;
+    J22_PENETRATION_GACHE_2;
+    
+    J23_BOITE_DERIV_GACHE_1;
+    J23_BOITE_DERIV_GACHE_2;
+    
+    J23_TRANSFO_JA_1;
+    J23_TRANSFO_JA_2;
+    J23_BOITE_DERIV_JA_1;
+    J23_BOITE_DERIV_JA_2;
+    
+    
+    BUTTON_1 -- BUTTON_2 [style = dashed; label = "ouvre/ferme(NO)";];
+    BUTTON_1 -- J19_INTERPHONE_BP_1 [label = "TEL(bp)/BRUN";];
+    BUTTON_2 -- J19_INTERPHONE_BP_2 [label = "TEL(bp)/TRANS";];
+    J19_INTERPHONE_BP_1 -- J21_TRANSFO_BP_1 [label = "TEL(int+ser+bp)/BRUN";];
+    J19_INTERPHONE_BP_2 -- J21_TRANSFO_BP_2 [label = "TEL(int+ser+bp)/TRANS";];
+    J21_TRANSFO_BP_1 -- ZA3_2 [label = "TEL(bp)/BRUN";];
+    J21_TRANSFO_BP_2 -- ZA3_7 [label = "TEL(bp)/TRANS";];
+    TRANSFO_GARAGE_POS -- IE_1AD_POS [label = "TEL(int+ser+bp)/GRIS";];
+    TRANSFO_GARAGE_NEG -- IE_1AD_NEG [label = "TEL(int+ser+bp)/BLANC";];
+    
+    IE_1AD_POS -- IE_1AD_L1 [label = "TEL/GRIS";];
+    IE_1AD_L1 -- IE_1AD_L2 [style = dashed; label = "déverrouillage";];
+    IE_1AD_L2 -- J21_TRANSFO_GACHE_1 [label = "TEL(int+ser+bp)/VIOLET";];
+    J21_TRANSFO_GACHE_1 -- J22_PENETRATION_GACHE_1 [label = "TEL_A(int+ser)/VIOLET";];
+    J22_PENETRATION_GACHE_1 -- J23_BOITE_DERIV_GACHE_1 [label = "TEL(int+ser)/NOIR";];
+    J23_BOITE_DERIV_GACHE_1 -- GACHE_1 [label = "TEL(ser)/BLEU_JAUNE";];
+    GACHE_1 -- GACHE_2 [style = dashed; label = "Gâche(bobine/12VAC)";];
+    GACHE_2 -- J23_BOITE_DERIV_GACHE_2 [label = "TEL(ser)/GRIS_BLANC";];
+    J23_BOITE_DERIV_GACHE_2 -- J22_PENETRATION_GACHE_2 [label = "TEL(int+ser)/MARRON";];
+    J22_PENETRATION_GACHE_2 -- J21_TRANSFO_GACHE_2 [label = "TEL_A(int+ser)/ORANGE";];
+    J21_TRANSFO_GACHE_2 -- IE_1AD_NEG [label = "TEL/ORANGE";];
+    
+    IE_1AD_JA_1 -- J23_TRANSFO_JA_1 [label = "TEL(int+ser+bp)/JAUNE";];
+    IE_1AD_JA_2 -- J23_TRANSFO_JA_2 [label = "TEL(int+ser+bp)/BLEU";];
+    J23_TRANSFO_JA_1 -- J23_BOITE_DERIV_JA_1 [label = "TEL_A(int+ser)/JAUNE";];
+    J23_TRANSFO_JA_2 -- J23_BOITE_DERIV_JA_2 [label = "TEL_A(int+ser)/BLEU";];
+    J23_BOITE_DERIV_JA_1 -- IE_JA_1 [label = "TEL(int)/JAUNE";];
+    J23_BOITE_DERIV_JA_2 -- IE_JA_2 [label = "TEL(int)/BLEU";];
+}

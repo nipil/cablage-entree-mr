@@ -1,0 +1,294 @@
+graph {
+    rankdir = "LR";
+    
+    subgraph cluster_HT {
+        label = "Haute tension";
+        
+        subgraph cluster_TERRE_HT {
+            style = filled;
+            color = beige;
+            label = "Terre";
+        }
+        
+        subgraph cluster_LAMPES_HT {
+            style = filled;
+            color = beige;
+            label = "Lampes";
+            
+            LAMPE_AUTO_M [shape = box;];
+            LAMPE_AUTO_B [shape = box;];
+            LAMPE_AUTO_N [shape = box;];
+            LAMPE_AUTO_V [shape = box;];
+            LAMPES_AlimPhase;
+            LAMPES_AlimNeutre;
+            LAMPES_PhaseAuto;
+            J6 [shape = diamond;];
+            J7 [shape = diamond;];
+            J10 [shape = diamond;];
+            P2_M;
+            P2_B;
+            P2_N1;
+            P2_N2;
+            P6_N;
+            P6_B;
+            P6_V;
+        }
+        
+        subgraph cluster_ALIMENTATION_HT {
+            style = filled;
+            color = beige;
+            label = "Alimentation";
+            
+            ALIM_N;
+            ALIM_B;
+            ALIM_V;
+            
+            ZA3_L1 [shape = box;];
+            ZA3_L2 [shape = box;];
+            
+            P1_V;
+            P2_V;
+            P4_V;
+            P8_V;
+            
+            J13 [shape = diamond;];
+            
+            M1_V_PE [shape = box;];
+            M2_V_PE [shape = box;];
+        }
+        
+        subgraph cluster_MOTEUR_1 {
+            style = filled;
+            color = beige;
+            label = "Moteur 1 (haie)";
+            
+            ZA3_U [shape = box;];
+            ZA3_V [shape = box;];
+            J3 [shape = diamond;];
+            J4 [shape = diamond;];
+            M1_M_UV [shape = box;];
+            M1_N_VU [shape = box;];
+            P1_M;
+            P1_N1;
+            P1_N2;
+            P5_N1;
+            P5_N2;
+        }
+        
+        subgraph cluster_MOTEUR_2 {
+            style = filled;
+            color = beige;
+            label = "Moteur 2 (central)";
+            
+            ZA3_X [shape = box;];
+            ZA3_Y [shape = box;];
+            J1 [shape = diamond;];
+            J2 [shape = diamond;];
+            P4_N1;
+            P4_N2;
+            P8_M;
+            P8_N1;
+            P8_N2;
+            M2_M_UV [shape = box;];
+            M2_N_VU [shape = box;];
+        }
+        
+        subgraph cluster_MOTEURS_COMMUN {
+            style = filled;
+            color = beige;
+            label = "Moteurs Neutre";
+            
+            ZA3_W [shape = box;];
+            P1_B;
+            P4_B;
+            P8_B;
+            J14 [shape = diamond;];
+            M1_B_COM [shape = box;];
+            M2_B_COM [shape = box;];
+        }
+    }
+    
+    subgraph cluster_BASSE_TENSION {
+        label = "Basse tension";
+        
+        subgraph cluster_ALIMENTATION_BT {
+            style = filled;
+            color = beige;
+            label = "Alimentation";
+            
+            ZA3_10 [shape = box;];
+            ZA3_11 [shape = box;];
+            P3_M;
+            P3_B;
+            P5_M;
+            P5_B;
+            J5 [shape = diamond;];
+            J11 [shape = diamond;];
+            IR_RX_POS [shape = box;];
+            IR_RX_NEG [shape = box;];
+            IR_TX_POS [shape = box;];
+            IR_TX_NEG [shape = box;];
+        }
+        
+        subgraph cluster_SIGNALISATION {
+            style = filled;
+            color = beige;
+            label = "Signalisation";
+            
+            ZA3_1 [shape = box;];
+            ZA3_2 [shape = box;];
+            ZA3_7 [shape = box;];
+            ZA3_C1 [shape = box;];
+            
+            ZA3_ANT_SHIELD [shape = box;];
+            ZA3_ANT_CORE [shape = box;];
+            
+            ANTENNE_SIGNAL [shape = box;];
+            ANTENNE_SHIELD [shape = box;];
+            
+            ANT_JauneBleu;
+            ANT_BlancGris;
+            
+            P4_M;
+            P5_V;
+            
+            J8 [shape = diamond;];
+            J9 [shape = diamond;];
+            J12 [shape = diamond;];
+            
+            P3_V;
+            P3_N1;
+            P3_N2;
+            
+            P7_N;
+            P7_B;
+            
+            
+            BUTTON [shape = box;];
+            
+            IR_RX_COM [shape = box;];
+            IR_RX_NO [shape = box;];
+            IR_RX_NC [shape = box;];
+            
+            KEY_COM [shape = box;];
+            KEY_NO [shape = box;];
+        }
+    }
+    
+    subgraph cluster_INUTILISE {
+        style = dotted;
+        label = "Inutilisé";
+        
+        P7_V;
+        
+        P9_N;
+        P9_B;
+        P9_V;
+    }
+    
+    ALIM_N -- ZA3_L2;
+    ALIM_B -- ZA3_L1;
+    
+    P4_M -- ZA3_2;
+    P4_B -- ZA3_W;
+    P4_V -- ALIM_V;
+    P4_N1 -- ZA3_X;
+    P4_N2 -- ZA3_Y;
+    
+    P5_M -- ZA3_10;
+    P5_B -- ZA3_11;
+    P5_V -- ZA3_C1;
+    P5_N1 -- ZA3_U;
+    P5_N2 -- ZA3_V;
+    
+    P6_N -- LAMPES_AlimPhase;
+    P6_B -- LAMPES_AlimNeutre;
+    P6_V -- LAMPES_PhaseAuto;
+    
+    LAMPE_AUTO_M -- P2_M;
+    LAMPE_AUTO_B -- P2_B;
+    LAMPE_AUTO_N -- {P2_N1 P2_N2};
+    LAMPE_AUTO_V -- P2_V;
+    
+    ZA3_1 -- ZA3_2 [label = "bp_stop_nc";];
+    
+    ZA3_2 -- BUTTON;
+    ZA3_7 -- BUTTON;
+    
+    ZA3_7 -- J9;
+    
+    ZA3_ANT_SHIELD -- ANT_JauneBleu -- ANTENNE_SHIELD;
+    ZA3_ANT_CORE -- ANT_BlancGris -- ANTENNE_SIGNAL;
+    ANTENNE_SHIELD -- ANTENNE_SIGNAL [style = dashed; label = "télécommandes";];
+    
+    P1_M -- J3;
+    P1_B -- J14;
+    P1_V -- J13;
+    P1_N1 -- J4;
+    P1_N2 -- J4;
+    
+    P2_M -- J10;
+    P2_B -- J6;
+    P2_V -- J13;
+    P2_N1 -- J7;
+    P2_N2 -- J7;
+    
+    P3_M -- J5;
+    P3_B -- J11;
+    P3_V -- J12;
+    P3_N1 -- J8;
+    P3_N2 -- J8;
+    
+    P4_M -- J8;
+    P4_B -- J14;
+    P4_V -- J13;
+    P4_N1 -- J1;
+    P4_N2 -- J2;
+    
+    P5_M -- J5;
+    P5_B -- J11;
+    P5_V -- J12;
+    P5_N1 -- J3;
+    P5_N2 -- J4;
+    
+    P6_N -- J10;
+    P6_V -- J7;
+    P6_B -- J6;
+    
+    P7_N -- J8;
+    # P7_V -- NotConnected
+    P7_B -- J9;
+    
+    P8_M -- J2;
+    P8_B -- J14;
+    P8_V -- J13;
+    P8_N1 -- J1;
+    P8_N2 -- J1;
+    
+    P1_M -- M1_M_UV;
+    P1_B -- M1_B_COM;
+    P1_V -- M1_V_PE;
+    P1_N1 -- M1_N_VU;
+    P1_N2 -- M1_N_VU;
+    
+    P8_M -- M2_M_UV;
+    P8_B -- M2_B_COM;
+    P8_V -- M2_V_PE;
+    P8_N1 -- M2_N_VU;
+    P8_N2 -- M2_N_VU;
+    
+    IR_RX_POS -- P3_M;
+    IR_RX_NEG -- P3_B;
+    IR_RX_COM -- {P3_N1 P3_N2};
+    IR_RX_NC -- P3_V;
+    # IR_RX_NO -- NotConnected
+    
+    IR_RX_COM -- IR_RX_NC [style = dashed; label = "repos";];
+    
+    IR_RX_POS -- IR_TX_POS;
+    IR_RX_NEG -- IR_TX_NEG;
+    
+    KEY_COM -- P7_N;
+    KEY_NO -- P7_B;
+    KEY_COM -- KEY_NO [style = dashed; label = "anti-horaire";];
+}

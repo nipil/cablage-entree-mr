@@ -1,0 +1,90 @@
+graph {
+    subgraph cluster_MAISON {
+        style = filled;
+        color = lightgreen;
+        label = "Maison";
+        
+        BOUTON_PORTAIL [shape = box;];
+        INTERPHONE_INTERIEUR [shape = box;];
+        J20_CAVE_GRAVIER;
+        TRANSFO_GARAGE [shape = box;];
+        J21_TRANSFO_GARAGE;
+        J22_PENETRATION_MURALE;
+        CARTE_ELECTRONIQUE_PORTAIL [shape = box;];
+        ALIMENTATION_GARAGE;
+        DISJONCTEUR_GARAGE [shape = box;];
+    }
+    
+    subgraph cluster_EXTERIEUR {
+        style = filled;
+        color = beige;
+        label = "Extérieur";
+        
+        LAMPES_ALLEE;
+        
+        subgraph cluster_POTEAU_ROUTE {
+            style = filled;
+            color = bisque;
+            label = "Poteau route";
+            
+            SONNETTE [shape = box;];
+            GACHE_ELEC [shape = box;];
+            LAMPE_AUTO [shape = box;];
+            ARRIERE;
+        }
+        
+        subgraph cluster_POTEAU_CENTRAL {
+            style = filled;
+            color = bisque;
+            label = "Poteau central";
+            
+            J23_BOITE_DERIVATION_PORTAIL;
+            RECEPTEUR_IR [shape = box;];
+            MOTEUR_M2 [shape = box;];
+            ANTENNE [shape = box;];
+        }
+        
+        subgraph cluster_POTEAU_HAIE {
+            style = filled;
+            color = bisque;
+            label = "Poteau haie";
+            
+            EMETTEUR_IR [shape = box;];
+            MOTEUR_M1 [shape = box;];
+            CLE_SECOURS [shape = box;];
+        }
+    }
+    
+    ALIMENTATION_GARAGE -- DISJONCTEUR_GARAGE [label = "NBV";];
+    DISJONCTEUR_GARAGE -- TRANSFO_GARAGE [label = "NBV";];
+    DISJONCTEUR_GARAGE -- CARTE_ELECTRONIQUE_PORTAIL [label = "NBV(ALIM)";];
+    
+    BOUTON_PORTAIL -- INTERPHONE_INTERIEUR [label = "TEL(bp)";];
+    INTERPHONE_INTERIEUR -- J20_CAVE_GRAVIER [label = "TEL(int+bp+ser)";];
+    J20_CAVE_GRAVIER -- J21_TRANSFO_GARAGE [label = "TEL(int+bp+ser)";];
+    J21_TRANSFO_GARAGE -- J22_PENETRATION_MURALE [label = "TEL(A(int+ser))";];
+    TRANSFO_GARAGE -- J21_TRANSFO_GARAGE [label = "TEL(15.5VAC)";];
+    J21_TRANSFO_GARAGE -- CARTE_ELECTRONIQUE_PORTAIL [label = "TEL(bp)";];
+    
+    J23_BOITE_DERIVATION_PORTAIL -- LAMPE_AUTO [label = "MBVN1N2(P2)";];
+    J23_BOITE_DERIVATION_PORTAIL -- ARRIERE [label = "NBV(P9?)";];
+    J23_BOITE_DERIVATION_PORTAIL -- SONNETTE [label = "TEL(int)";];
+    J23_BOITE_DERIVATION_PORTAIL -- GACHE_ELEC [label = "TEL(ser)";];
+    
+    J23_BOITE_DERIVATION_PORTAIL -- RECEPTEUR_IR [label = "MBVN1N2(P3)";];
+    J23_BOITE_DERIVATION_PORTAIL -- MOTEUR_M2 [label = "MBVN1N2(P8)";];
+    J23_BOITE_DERIVATION_PORTAIL -- ANTENNE [label = "MB(ant)";];
+    
+    J23_BOITE_DERIVATION_PORTAIL -- MOTEUR_M1 [label = "MBVN1N2(P1)";];
+    J23_BOITE_DERIVATION_PORTAIL -- CLE_SECOURS [label = "NBV(P7)";];
+    RECEPTEUR_IR -- EMETTEUR_IR [label = "NBV(?)";];
+    
+    J23_BOITE_DERIVATION_PORTAIL -- LAMPES_ALLEE [label = "NBV(P6)";];
+    
+    J22_PENETRATION_MURALE -- J23_BOITE_DERIVATION_PORTAIL [label = "TEL(int+ser)";];
+    
+    CARTE_ELECTRONIQUE_PORTAIL -- J23_BOITE_DERIVATION_PORTAIL [label = "TEL(P10(sec))";];
+    CARTE_ELECTRONIQUE_PORTAIL -- J23_BOITE_DERIVATION_PORTAIL [label = "TEL(ant)";];
+    CARTE_ELECTRONIQUE_PORTAIL -- J23_BOITE_DERIVATION_PORTAIL [label = "MBVN1N2(P4)";];
+    CARTE_ELECTRONIQUE_PORTAIL -- J23_BOITE_DERIVATION_PORTAIL [label = "MBVN1N2(P5)";];
+}
